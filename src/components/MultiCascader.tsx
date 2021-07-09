@@ -4,12 +4,11 @@ import React, {
   useImperativeHandle,
   useRef,
 } from 'react'
-import { Button, Empty } from 'antd'
+import { Empty } from 'antd'
 import { ConfigContext } from 'antd/lib/config-provider'
 import Trigger from 'rc-trigger'
 import BUILT_IN_PLACEMENTS from '../libs/placement'
 import Menu from './Menu'
-import Checkbox from './Checkbox'
 import { TreeNode, ValueType } from '../index.d'
 import MultiCascaderContainer from '../container'
 import Selector from './Selector'
@@ -51,36 +50,36 @@ const Popup = (props: PopupProps) => {
   const ref = useRef(null)
   const {
     data,
-    selectAll,
-    onCancel,
-    onConfirm,
-    okText = 'Confirm',
-    cancelText = 'Cancel',
-    selectAllText = 'All',
+    // selectAll,
+    // onCancel,
+    // onConfirm,
+    // okText = 'Confirm',
+    // cancelText = 'Cancel',
+    // selectAllText = 'All',
   } = props
-  const { flattenData } = MultiCascaderContainer.useContainer()
+  // const { flattenData } = MultiCascaderContainer.useContainer()
 
   return (
     <div className={`${prefix}-popup`} ref={ref}>
       {data && data.length ? (
         <>
           <Menu />
-          <div className={`${prefix}-popup-footer`}>
-            {selectAll ? (
-              <div className={`${prefix}-popup-all`}>
-                <Checkbox node={flattenData[0]} />
-                &nbsp;&nbsp;{selectAllText}
-              </div>
-            ) : null}
-            <div className={`${prefix}-popup-buttons`}>
-              <Button size="small" onClick={onCancel}>
-                {cancelText}
-              </Button>
-              <Button size="small" type="primary" onClick={onConfirm}>
-                {okText}
-              </Button>
-            </div>
-          </div>
+          {/*<div className={`${prefix}-popup-footer`}>*/}
+          {/*  {selectAll ? (*/}
+          {/*    <div className={`${prefix}-popup-all`}>*/}
+          {/*      <Checkbox node={flattenData[0]} />*/}
+          {/*      &nbsp;&nbsp;{selectAllText}*/}
+          {/*    </div>*/}
+          {/*  ) : null}*/}
+          {/*  <div className={`${prefix}-popup-buttons`}>*/}
+          {/*    <Button size="small" onClick={onCancel}>*/}
+          {/*      {cancelText}*/}
+          {/*    </Button>*/}
+          {/*    <Button size="small" type="primary" onClick={onConfirm}>*/}
+          {/*      {okText}*/}
+          {/*    </Button>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </>
       ) : (
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />

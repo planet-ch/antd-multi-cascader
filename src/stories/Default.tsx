@@ -1,36 +1,42 @@
 import React, { useState } from 'react'
-import { Checkbox } from 'antd'
 import { storiesOf } from '@storybook/react'
 import MultiCascader from '../index'
-import { UnorderedListOutlined } from '@ant-design/icons'
 
 storiesOf('MultiCascader', MultiCascader as any).add('Default', () => {
   const [state, setState] = useState<string[]>([])
-  const [disabled, setDisabled] = useState<boolean>(false)
+  const [disabled] = useState<boolean>(false)
   const [options] = useState([
     {
       value: 'Node1',
-      title: (
-        <>
-          <UnorderedListOutlined /> Node1
-        </>
-      ),
+      title: 'Node1',
       children: [
         {
           value: 'Node1-1',
-          title: (
-            <>
-              <UnorderedListOutlined /> Node1-1
-            </>
-          ),
+          title: 'Node2',
+          children: [
+            {
+              value: 'Node4',
+              title: 'Node4',
+            },
+            {
+              value: 'Node5',
+              title: 'Node5',
+            },
+          ],
         },
         {
           value: 'Node1-2',
-          title: (
-            <>
-              <UnorderedListOutlined /> Node1-2
-            </>
-          ),
+          title: 'Node3',
+          children: [
+            {
+              value: 'Node8',
+              title: 'Node4',
+            },
+            {
+              value: 'Node0',
+              title: 'Node5',
+            },
+          ],
         },
       ],
     },
@@ -40,7 +46,11 @@ storiesOf('MultiCascader', MultiCascader as any).add('Default', () => {
     },
   ])
 
-  const handleChange = (e) => setDisabled(e.target.checked)
+
+  const onChange = (v, v1) => {
+    console.log(v, v1)
+    setState(v)
+  }
 
   return (
     <>
@@ -48,17 +58,12 @@ storiesOf('MultiCascader', MultiCascader as any).add('Default', () => {
         selectAll
         data={options}
         value={state}
-        onChange={setState}
-        allowClear
+        onChange={(v,v1) => onChange(v, v1)}
         disabled={disabled}
         placeholder="Default"
-        style={{ width: '200px' }}
+        style={{ width: '320px' }}
       />
-      <div>
-        <Checkbox checked={disabled} onChange={handleChange}>
-          Disabled
-        </Checkbox>
-      </div>
     </>
   )
 })
+

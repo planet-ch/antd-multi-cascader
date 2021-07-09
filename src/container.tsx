@@ -95,12 +95,18 @@ const useCascade = (params?: Props) => {
 
   const triggerChange = useCallback(
     (nextValue: ValueType[]) => {
+      // 根据最新的value 返回实际内容
+      const returnItem = (value) => {
+        return flattenData.filter((node: TreeNode) => {
+          return value.includes(node.value)
+        })
+      }
       if (onChange) {
-        onChange(nextValue, selectedItems.slice(0))
+        onChange(nextValue, returnItem(nextValue))
       }
       hackValue.current = nextValue
       setValue(nextValue)
-      setPopupVisible(false)
+      // setPopupVisible(false)
     },
     [selectedItems]
   )
@@ -152,9 +158,10 @@ const useCascade = (params?: Props) => {
 
   const handleSelectChange = useCallback(
     (item: TreeNode, checked: boolean) => {
-      setValue((prevValue) =>
-        sortByTree(reconcile(item, checked, prevValue), flattenData)
-      )
+      setValue((prevValue) => {
+        triggerChange(sortByTree(reconcile(item, checked, prevValue), flattenData))
+        return sortByTree(reconcile(item, checked, prevValue), flattenData)
+      })
     },
     [flattenData]
   )

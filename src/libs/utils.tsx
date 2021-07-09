@@ -300,3 +300,16 @@ export function findNodeByValue(
 
   return findParent(tree)
 }
+
+export function conactAllName(initData: any, init: string, flag: boolean): any{
+  const newData = Object.assign({}, initData)
+  if (newData.parent && newData.parent.title !== 'All') {
+    const title = init ? `${newData.title}-${init}` : newData.title
+    newData.title = conactAllName(newData.parent, title, flag)
+    return newData.title
+  } else if (newData.parent && newData.parent.title === 'All' && flag) {
+    return init ? `${newData.title}-${init}-全部` : `${newData.title}-全部`
+  } else {
+    return init ? `${newData.title}-${init}` : newData.title
+  }
+}

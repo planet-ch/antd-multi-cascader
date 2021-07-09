@@ -17,7 +17,7 @@ storiesOf('MultiCascader', MultiCascader as any).add('Async Data', () => {
   ])
 
   const handleCascaderChange = React.useCallback((node, { add }) => {
-    if (node.value === 'Node1' && !node.children) {
+    if (!node.children) {
       setTimeout(() => {
         setOptions(
           add([
@@ -29,21 +29,7 @@ storiesOf('MultiCascader', MultiCascader as any).add('Async Data', () => {
             {
               value: 'Node1-2',
               title: 'Node1-2-title',
-            },
-          ])
-        )
-      }, 500)
-    } else if (node.value === 'Node1-1' && !node.children) {
-      setTimeout(() => {
-        setOptions(
-          add([
-            {
-              value: 'Node1-1-1',
-              title: 'Node1-1-1-title',
-            },
-            {
-              value: 'Node1-2-1',
-              title: 'Node1-2-1-title',
+              isLeaf: false,
             },
           ])
         )
