@@ -4,7 +4,7 @@ import React, {
   useImperativeHandle,
   useRef,
 } from 'react'
-import { Empty } from 'antd'
+import { Empty, Button } from 'antd'
 import { ConfigContext } from 'antd/lib/config-provider'
 import Trigger from 'rc-trigger'
 import BUILT_IN_PLACEMENTS from '../libs/placement'
@@ -14,6 +14,7 @@ import MultiCascaderContainer from '../container'
 import Selector from './Selector'
 import { matchAllLeafValue, reconcile } from '../libs/utils'
 import { prefix } from '../constants'
+import Checkbox from './../components/Checkbox'
 
 export interface Props {
   value?: ValueType[]
@@ -38,6 +39,9 @@ export interface Props {
   renderTitle?: (value: string) => ReactNode | undefined
   getPopupContainer?: (props: any) => HTMLElement
   maxTagCount?: number | 'responsive'
+  showBottom?: boolean // 是否显示底部菜单
+  fristColumMulti?: boolean //首行是否多选
+  isToolTip?: boolean // 是否通过toolTip显示
 }
 
 export interface PopupProps extends Props {
@@ -50,36 +54,41 @@ const Popup = (props: PopupProps) => {
   const ref = useRef(null)
   const {
     data,
-    // selectAll,
-    // onCancel,
-    // onConfirm,
-    // okText = 'Confirm',
-    // cancelText = 'Cancel',
-    // selectAllText = 'All',
+    selectAll,
+    onCancel,
+    onConfirm,
+    okText = 'Confirm',
+    cancelText = 'Cancel',
+    selectAllText = 'All',
+    showBottom
   } = props
-  // const { flattenData } = MultiCascaderContainer.useContainer()
+  const { flattenData } = MultiCascaderContainer.useContainer()
 
   return (
     <div className={`${prefix}-popup`} ref={ref}>
       {data && data.length ? (
         <>
           <Menu />
-          {/*<div className={`${prefix}-popup-footer`}>*/}
-          {/*  {selectAll ? (*/}
-          {/*    <div className={`${prefix}-popup-all`}>*/}
-          {/*      <Checkbox node={flattenData[0]} />*/}
-          {/*      &nbsp;&nbsp;{selectAllText}*/}
-          {/*    </div>*/}
-          {/*  ) : null}*/}
-          {/*  <div className={`${prefix}-popup-buttons`}>*/}
-          {/*    <Button size="small" onClick={onCancel}>*/}
-          {/*      {cancelText}*/}
-          {/*    </Button>*/}
-          {/*    <Button size="small" type="primary" onClick={onConfirm}>*/}
-          {/*      {okText}*/}
-          {/*    </Button>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
+          {
+            showBottom ? (
+              <div className={`${prefix}-popup-footer`}>
+                {selectAll ? (
+                  <div className={`${prefix}-popup-all`}>
+                    <Checkbox node={flattenData[0]} />
+                    &nbsp;&nbsp;{selectAllText}
+                  </div>
+                ) : null}
+                <div className={`${prefix}-popup-buttons`}>
+                  <Button size="small" onClick={onCancel}>
+                    {cancelText}
+                  </Button>
+                  <Button size="small" type="primary" onClick={onConfirm}>
+                    {okText}
+                  </Button>
+                </div>
+              </div>
+            ) : null
+          }
         </>
       ) : (
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />

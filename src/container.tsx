@@ -20,6 +20,8 @@ const useCascade = (params?: Props) => {
     onChange,
     onCascaderChange,
     selectLeafOnly,
+    fristColumMulti,
+    isToolTip
   } = params || {}
   const [popupVisible, setPopupVisible] = useState(false)
   const dataRef = useRef<Array<TreeNode> | undefined>(data)
@@ -204,6 +206,8 @@ const useCascade = (params?: Props) => {
     triggerChange,
     selectLeafOnly,
     hackValue,
+    fristColumMulti,
+    isToolTip
   }
 }
 

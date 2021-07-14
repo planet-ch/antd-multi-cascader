@@ -38,6 +38,20 @@ storiesOf('MultiCascader', MultiCascader as any).add('Default', () => {
             },
           ],
         },
+        {
+          value: 'Node1-3',
+          title: 'Node4',
+          children: [
+            {
+              value: 'Node51',
+              title: 'Node42',
+            },
+            {
+              value: 'Node03',
+              title: 'Node54',
+            },
+          ],
+        },
       ],
     },
     {
@@ -62,8 +76,12 @@ storiesOf('MultiCascader', MultiCascader as any).add('Default', () => {
         disabled={disabled}
         placeholder="Default"
         style={{ width: '320px' }}
+        showBottom={true}
+        fristColumMulti={true}
+        isToolTip={true}
       />
     </>
   )
 })
+
 

@@ -1,13 +1,13 @@
-# antd-multi-cascader
+# weike-multi-cascader
 
 ![Test](https://github.com/HelKyle/antd-multi-cascader/workflows/Test/badge.svg) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg) ![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Codecov Coverage](https://img.shields.io/codecov/c/github/HelKyle/antd-multi-cascader/master.svg)
 [![Storybook](https://img.shields.io/badge/%E2%99%A5-Storybook-ff69b4)](https://helkyle.github.io/antd-multi-cascader/)
-[![npm](https://img.shields.io/npm/v/antd-multi-cascader)](https://www.npmjs.com/package/antd-multi-cascader)
+[![npm](https://img.shields.io/npm/v/antd-multi-cascader)](https://www.npmjs.com/package/weike-multi-cascader)
 
 A multiple cascader component for antd
 
-[![antd-multi-cascader](https://nodei.co/npm/antd-multi-cascader.png)](https://npmjs.org/package/antd-multi-cascader)
+[![antd-multi-cascader](https://nodei.co/npm/antd-multi-cascader.png)](https://www.npmjs.com/package/weike-multi-cascader)
 
 <a href="https://codesandbox.io/s/dreamy-jennings-2y1ff?file=/src/App.tsx" target="_blank">Online Demo</a>，<a href="https://juejin.cn/post/6914994241940750343" target="_blank">How it works?</a>
 
@@ -44,7 +44,10 @@ return (
 | placeholder         | string                                                                              | The input placeholder                                                                                                                                                 |
 | onChange            | (newVal) => void                                                                    | Callback when finishing value select                                                                                                                                  |
 | selectAll           | boolean                                                                             | Whether allow select all                                                                                                                                              |
-| className           | string                                                                              | The additional css class                                                                                                                                              |
+| className           | string                                                                              | The additional css class                                                                                                                                             |
+| showBottom          | boolean                                                                             | 是否显示底部确认组件                                                                                                                                               |
+| fristColumMulti     | boolean                                                                             | 第一栏是否可选                                                                                                                                               |
+| isToolTip           | boolean                                                                             | 已选内容是否通过tooltip显示                                                                                                                                             |
 | style               | React.CSSProperties                                                                 | The additional style                                                                                                                                                  |
 | disabled            | boolean                                                                             | Whether disabled select                                                                                                                                               |
 | okText              | string                                                                              | The text of the Confirm button                                                                                                                                        |
@@ -87,10 +90,16 @@ const handleCascaderChange = React.useCallback((node, { add }) => {
   }
 }, [])
 
-<MultiCascader
-  selectAll
-  data={asyncOptions}
-  onCascaderChange={handleCascaderChange}
-  placeholder="Async Data"
-/>
+    <MultiCascader
+        selectAll
+        data={options}
+        value={state}
+        onChange={(v,v1) => onChange(v, v1)}
+        disabled={disabled}
+        placeholder="Default"
+        style={{ width: '320px' }}
+        showBottom={true}
+        fristColumMulti={true}
+        isToolTip={true}
+    />
 ```

@@ -9,15 +9,18 @@ import Checkbox from './Checkbox'
 export interface MenuItemProps {
   node: TreeNode
   depth: number
+  disabled?: boolean
+  index: number
 }
 
 export default React.memo((props: MenuItemProps) => {
-  const { node, depth } = props
+  const { node, depth, index } = props
   const { children, value, title, isLeaf } = node
   const {
     handleCascaderChange,
     menuPath,
     selectLeafOnly,
+    fristColumMulti,
   } = MultiCascader.useContainer()
   const [loading, setLoading] = useState(false)
   const hasChildren = (children && children.length > 0) || isLeaf === false
@@ -38,7 +41,7 @@ export default React.memo((props: MenuItemProps) => {
 
   return (
     <li onClick={handleClick} className={cls}>
-      {checkboxHidden ? null : <Checkbox node={node} />}
+      {(!checkboxHidden && (index !== 0) || fristColumMulti) ? <Checkbox node={node} /> : null}
       <p
         className={`${prefix}-column-item-label`}
         style={{ paddingLeft: checkboxHidden ? '0px' : '' }}

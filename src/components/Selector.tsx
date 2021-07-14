@@ -76,7 +76,7 @@ const Selector = (props: SelectorProps) => {
     maxTagCount,
     ...rest
   } = props
-  const { selectedItems, hackValue } = MultiCascaderContainer.useContainer()
+  const { selectedItems, hackValue, isToolTip } = MultiCascaderContainer.useContainer()
   const selectedItemsMap = keyBy(selectedItems, 'value')
 
   const handleClear = useCallback(
@@ -140,29 +140,49 @@ const Selector = (props: SelectorProps) => {
       ref={forwardRef}
       {...rest}
     >
-      <Popover content={popupTitle} title="Title" trigger="hover">
-        <div
-          className="ant-select-selector"
-          style={{ paddingRight: !disabled && allowClear ? '24px' : undefined }}
-        >
-          {values.length ? (
-            // <Overflow
-            //   prefixCls={`${prefix}-overflow`}
-            //   data={values}
-            //   renderItem={renderItem}
-            //   renderRest={renderRest}
-            //   maxCount={maxTagCount}
-            // />
-            <div className='overflowP'>{popupTitle}</div>
-          ) : (
-            <span
-              className={`${prefix}-placeholder ant-select-selection-placeholder`}
+      {
+        isToolTip ? (
+          <Popover content={popupTitle} title="已选中" trigger="hover">
+            <div
+              className="ant-select-selector"
+              style={{ paddingRight: !disabled && allowClear ? '24px' : undefined }}
             >
+              {values.length ? (
+                <div className='overflowP'>{popupTitle}</div>
+              ) : (
+                <span
+                  className={`${prefix}-placeholder ant-select-selection-placeholder`}
+                >
             {placeholder}
           </span>
-          )}
-        </div>
-      </Popover>
+              )}
+            </div>
+          </Popover>
+        ) : (
+          <div
+            className="ant-select-selector"
+            style={{ paddingRight: !disabled && allowClear ? '24px' : undefined }}
+          >
+            {values.length ? (
+              // <Overflow
+              //   prefixCls={`${prefix}-overflow`}
+              //   data={values}
+              //   renderItem={renderItem}
+              //   renderRest={renderRest}
+              //   maxCount={maxTagCount}
+              // />
+              <div className='overflowP'>{popupTitle}</div>
+            ) : (
+              <span
+                className={`${prefix}-placeholder ant-select-selection-placeholder`}
+              >
+            {placeholder}
+          </span>
+            )}
+          </div>
+        )
+      }
+
 
       {!disabled && allowClear ? (
         <span className="ant-select-clear" onClick={handleClear}>

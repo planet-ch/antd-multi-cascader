@@ -9,8 +9,9 @@ const Column = (props: {
   item: TreeNode[]
   columnWidth?: number
   depth: number
+  index: number
 }) => {
-  const { item, columnWidth, depth } = props
+  const { item, columnWidth, depth, index } = props
   const ref = useRef<HTMLDivElement | null>(null)
   const [width, setWidth] = useState(columnWidth)
 
@@ -29,7 +30,7 @@ const Column = (props: {
       <ul>
         {item.map((node: TreeNode) => {
           return (
-            <MenuItem key={node.value.toString()} depth={depth} node={node} />
+            <MenuItem index={index} key={node.value.toString()} depth={depth} node={node} />
           )
         })}
       </ul>
@@ -46,6 +47,7 @@ export default (props: Props) => {
       {menuData.map((item, index) => {
         return (
           <Column
+            index={index}
             item={item}
             columnWidth={columnWidth}
             depth={index}

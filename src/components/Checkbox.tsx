@@ -5,8 +5,8 @@ import { hasChildChecked, hasParentChecked } from '../libs/utils'
 import { MenuItemProps } from './MenuItem'
 import MultiCascader from '../container'
 
-export default React.memo((props: Pick<MenuItemProps, 'node'>) => {
-  const { node } = props
+export default React.memo((props: Pick<MenuItemProps, 'node' | 'disabled'>) => {
+  const { node, disabled } = props
   const {
     value: containerValue,
     handleSelectChange,
@@ -29,6 +29,7 @@ export default React.memo((props: Pick<MenuItemProps, 'node'>) => {
 
   return (
     <Checkbox
+      disabled={disabled}
       onClick={handleClick}
       onChange={handleChange}
       checked={checked}
